@@ -1,0 +1,16 @@
+body{
+    background-color: black;
+}
+
+.titre-artiste{
+    border-radius: 20px;
+    height: 50px;
+    min-width: 20%;
+    margin: auto;
+    padding: auto;
+}
+
+.button-artiste{
+    top: 100px;
+    display: flex;
+}
