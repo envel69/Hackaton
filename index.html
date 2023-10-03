@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Lecture du son YouTube</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Page Musicale</title>
 </head>
 <body>
-    <button id="playButton">Lancer la lecture</button>
-    <audio id="audioPlayer" controls>
-        <source id="audioSource" type="audio/mp3">
-        Votre navigateur ne supporte pas l'élément audio.
-    </audio>
-
-    
+    <div id="spotify-player"></div>
+    <button id="play-button">Lancer la musique</button>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
