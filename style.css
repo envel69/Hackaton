@@ -40,11 +40,7 @@ header {
     
 }
 
-.reglesjoin {
-    width: 70%;
-    height: 40vh;
-    background-color: aliceblue;
-}
+
 
 
 .pseudoinput {
@@ -70,4 +66,36 @@ header {
     background: #FFF;
     box-shadow: 7px 7px 4px 0px #AB8080;
     border: none;
+}
+
+
+.reglesjoin {
+    width: 70%;
+    height: 40vh;
+    background-color: aliceblue;
+    display: flex;
+
+    
+}
+
+
+.regles {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 5px;
+    
+}
+
+
+.regles1, .regles2, .regles3 {
+    border-right: 10px solid black ;
+}
+
+
+.casque {
+    width: 150px;
+    height: 150px;
 }
