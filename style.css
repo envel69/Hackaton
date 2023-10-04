@@ -107,13 +107,14 @@ h3 {
         border-radius: 20px;
         width: 200px;
         height: 75px;
+        
      
     
     }
     
     .demarrer {
         background-color: white;
-        
+        text-align: center;
         border-radius: 20px;
         width: 200px;
         height: 75px;
@@ -132,3 +133,32 @@ h3 {
         -webkit-box-shadow: 10px 10px 5px 0px #0000FF;  
         -moz-box-shadow: 10px 10px 5px 0px #0000FF;
     }
+
+
+
+footer  {
+    bottom: 50;
+    height: 7vh;
+}
+
+footer p {
+    color: white;
+    text-align: center;
+    font-family: 'roboto', sans-serif;
+}
+
+
+.link {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    right: 30px;
+
+}
+
+.play {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    right: 30px;
+}
