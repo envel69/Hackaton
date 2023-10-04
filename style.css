@@ -108,9 +108,16 @@ header {
     border: 5px solid rgb(0, 0, 0);
     font-family: Roboto;
     box-shadow: 0px 0px 5px rgb(255, 255, 255);
+    opacity: 75%;
     
 }
 
+
+.regles:hover {
+    opacity: 100%;
+        
+
+}
 
 .regles1, .regles2, .regles3 {
     
@@ -122,13 +129,39 @@ header {
     height: 150px;
 }
 
+
+
+.casque:hover {
+    rotate: 5deg;
+}
+
 .croix {
     width: 150px;
     height: 150px;
+}
+
+.croix:hover {
+    rotate: -5deg;
+}
+
+.flamme:hover {
+    rotate: 5deg;
+    width: 200px;
+    height: 200px;
 }
 
 
 .flamme {
     width: 150px;
     height: 150px;
+}
+
+
+.trophée {
+    width: 150px;
+    height: 150px;
+}
+
+.trophée:hover {
+    rotate: -20deg;
 }
