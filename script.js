@@ -1,23 +1,57 @@
 var audio = document.getElementById("myAudio");
-var songs = ["audio/KIKESA - 42 JOURS.mp3", "audio/Nekfeu - On Verra (Clip Officiel).mp3", "audio/Des Histoires a Raconter.mp3", "audio/Trophée Vald.mp3"];
+var categories = {
+    "Test": ["audio/KIKESA - 42 JOURS.mp3", "audio/Nekfeu - On Verra (Clip Officiel).mp3", "audio/Trophée Vald.mp3", "audio/Des Histoires a Raconter.mp3"],
+    "Année 2010": ["audio/Roar.mp3", "audio/Wake Me Up.mp3", "audio/Shape Of You.mp3", "audio/Hello.mp3", "audio/See You Again.mp3", "audio/Party Rock Anthem.mp3"]
+    // Ajoutez d'autres catégories ici
+};
+
+var currentCategory = null;
 var currentSongIndex = 0;
 
 function playRandomSongAndShowButtons() {
-    var randomIndex = Math.floor(Math.random() * songs.length);
-    currentSongIndex = randomIndex;
-    audio.src = songs[currentSongIndex];
+    if (!currentCategory) return;
+
+    var categorySongs = categories[currentCategory];
+    if (!categorySongs || categorySongs.length === 0) return;
+
+    var randomSongIndex = Math.floor(Math.random() * categorySongs.length);
+    currentSongIndex = randomSongIndex;
+    audio.src = categorySongs[currentSongIndex];
     audio.play();
-    showSongButtons();
+    showRandomButtons(categorySongs);
 }
 
-function showSongButtons() {
+function showRandomButtons(categorySongs) {
     var songButtonsDiv = document.getElementById("songButtons");
     songButtonsDiv.innerHTML = "";
-    for (var i = 0; i < songs.length; i++) {
-        var button = document.createElement("button");
-        button.textContent = getSongTitle(songs[i]);
-        button.onclick = createButtonOnClickHandler(i);
-        songButtonsDiv.appendChild(button);
+
+    // Sélectionner trois titres au hasard
+    var randomIndexes = [];
+    while (randomIndexes.length < 3) {
+        var randomIndex = Math.floor(Math.random() * categorySongs.length);
+        if (randomIndexes.indexOf(randomIndex) === -1 && randomIndex !== currentSongIndex) {
+            randomIndexes.push(randomIndex);
+        }
+    }
+
+    // Ajouter un bouton pour la chanson actuelle
+    var currentButton = document.createElement("button");
+    currentButton.textContent = getSongTitle(categorySongs[currentSongIndex]);
+    currentButton.onclick = function() {
+        checkAnswer(currentSongIndex);
+    };
+    songButtonsDiv.appendChild(currentButton);
+
+    // Ajouter trois boutons pour les titres au hasard
+    for (var i = 0; i < randomIndexes.length; i++) {
+        var randomButton = document.createElement("button");
+        randomButton.textContent = getSongTitle(categorySongs[randomIndexes[i]]);
+        randomButton.onclick = function(index) {
+            return function() {
+                checkAnswer(index);
+            };
+        }(randomIndexes[i]);
+        songButtonsDiv.appendChild(randomButton);
     }
 }
 
@@ -37,8 +71,21 @@ function createButtonOnClickHandler(index) {
 function checkAnswer(index) {
     if (index === currentSongIndex) {
         document.getElementById("responseMessage").innerHTML = "Bonne réponse!";
+        document.getElementById("responseMessage").classList.remove("red-text");
+        document.getElementById("responseMessage").classList.add("green-text");
         playRandomSongAndShowButtons();
     } else {
-        document.getElementById("responseMessage").innerHTML = "Mauvaise réponse!";
+        var responseMessage = document.getElementById("responseMessage");
+        responseMessage.innerHTML = "Mauvaise réponse!";
+        responseMessage.classList.remove("green-text");
+        responseMessage.classList.add("red-text");
     }
 }
+
+function selectCategory(category) {
+    currentCategory = category;
+    playRandomSongAndShowButtons();
+}
+
+// Appeler selectCategory pour initialiser la catégorie au chargement de la page (par exemple, "Pop")
+selectCategory("Pop");

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Lecture de musique</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <h1>Lecture de musique</h1>
@@ -13,7 +13,11 @@
             Votre navigateur ne prend pas en charge l'élément audio.
         </audio>
 
-        <button onclick="playRandomSongAndShowButtons()">Prêt</button>
+        <div id="category-buttons">
+            <button onclick="selectCategory('Test')">Test</button>
+            <button onclick="selectCategory('Année 2010')">Année 2010</button>
+            <!-- Ajoutez d'autres catégories ici -->
+        </div>
         
         <div id="responseMessage"></div>
         <div id="songButtons"></div>
