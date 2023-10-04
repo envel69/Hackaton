@@ -92,3 +92,43 @@ h3 {
     align-items: center;
 }
   
+.buttons-index {
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
+    gap:30px
+    }
+    
+    .invitez {
+        background-color: #0000FF;
+        border: none;
+        color: #ffffff;
+        font-family: "supercell";
+        border-radius: 20px;
+        width: 200px;
+        height: 75px;
+     
+    
+    }
+    
+    .demarrer {
+        background-color: white;
+        
+        border-radius: 20px;
+        width: 200px;
+        height: 75px;
+        font-family: "supercell";
+        
+    }
+    
+    .invitez:hover{
+        box-shadow: 10px 10px 5px 0px #ffff;
+        -webkit-box-shadow: 10px 10px 5px 0px #ffff;  
+        -moz-box-shadow: 10px 10px 5px 0px #ffff;
+    }
+    
+    .demarrer:hover  {
+        box-shadow: 10px 10px 5px 0px #0000FF;
+        -webkit-box-shadow: 10px 10px 5px 0px #0000FF;  
+        -moz-box-shadow: 10px 10px 5px 0px #0000FF;
+    }
