@@ -1,14 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma Page Musicale</title>
+    <title>Lecture de musique</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div id="spotify-player"></div>
-    <button id="play-button">Lancer la musique</button>
-    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <h1>Lecture de musique</h1>
+    
+    <div id="audio-controls">
+        <audio controls id="myAudio">
+            <source src="" type="audio/mpeg">
+            Votre navigateur ne prend pas en charge l'élément audio.
+        </audio>
+
+        <button onclick="playRandomSongAndShowButtons()">Prêt</button>
+        
+        <div id="responseMessage"></div>
+        <div id="songButtons"></div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
