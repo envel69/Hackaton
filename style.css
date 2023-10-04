@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: black;
+    background-color: rgb(0, 0, 0);
 }
 
 .first-container {
@@ -94,36 +94,28 @@ a {
     justify-content: center;
     align-items: center;
     transition: 0.5s;
-    background-color: hwb(0 100% 0% / 0.689);
+
 
 }
 
 exit-button {
     position: absolute;
     top: 50px;
-    /* Ajustez la position verticale selon vos préférences */
     left: 50%;
-    /* Centre horizontalement */
     transform: translateX(-50%);
-    /* Centre horizontalement */
     background-color: red;
-    /* Couleur du fond du bouton */
     padding: 10px 20px;
-    /* Espacement intérieur du bouton */
     border: none;
-    /* Supprimez les bordures */
     border-radius: 5px;
-    /* Ajoutez des coins arrondis */
     color: white;
-    /* Couleur du texte */
     cursor: pointer;
-    /* Changez le curseur en pointeur au survol */
+
 }
 
 .exit-button button {
-    background: none;
+    background: white;
     border: none;
-    color: inherit;
+    color: black;
     font: inherit;
     cursor: pointer;
 }
