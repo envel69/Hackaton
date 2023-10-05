@@ -3,13 +3,13 @@
     font-family: "supercell";
     src:
       local("supercell"),
-      url("supercell-magic.ttf") }
+      url("../fonts/supercell-magic.ttf") }
 
       @font-face {
         font-family: 'roboto';
         src:
           local("roboto"),
-          url("Roboto-Medium.ttf") }
+          url("../fonts/Roboto-Medium.ttf") }
     
     
 
