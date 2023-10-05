@@ -110,11 +110,12 @@ header {
 .choixs {
     width: 100%;
     height: 25vh;
-    
+    flex-direction: row;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 25px;
+    gap: 30px;
+    
 }
 
 
@@ -123,6 +124,7 @@ header {
     width: 45vh;
     height: 15vh;
     background-color: grey;
+    border: 5px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -172,10 +174,6 @@ button {
     transition: background-color 0.3s ease-in-out;
 }
 
-button:hover {
-    background-color: #555;
-}
-
 #responseMessage {
     font-size: 18px;
     font-weight: bold;
@@ -189,3 +187,32 @@ button:hover {
 .green-text {
     color: green;
 }
+
+
+@media (max-width: 150vh) {
+    body {
+     
+      
+  }
+  .chrono {
+    color: white;
+  }
+  .pseudos {
+    font-size: 30px;
+  }
+  .choixs {
+    flex-direction: column ;
+    margin-top: 100px;
+  }
+  .choix {
+    width: 25vh;
+    height: 10vh;
+  }
+  .streaks {
+    width: 100%;
+  }
+  
+}
+  
+  
+  
