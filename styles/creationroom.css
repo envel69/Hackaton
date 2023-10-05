@@ -1,0 +1,180 @@
+
+@font-face {
+    font-family: "supercell";
+    src:
+      local("supercell"),
+      url("../fonts/supercell-magic.ttf") }
+
+      @font-face {
+        font-family: 'roboto';
+        src:
+          local("roboto"),
+          url("../fonts/Roboto-Medium.ttf") }
+    
+    
+
+
+body {
+    background-color: black;
+    margin: auto;
+    padding: auto;
+    height: 100vh;
+}
+
+header {
+    width: 100%;
+    height: 20vh;
+    text-align: center;
+    
+}
+
+.logoblancjoiningroom {
+    width: 250px;
+    height: 200px;
+}
+
+
+.categoriesparticipants {
+    width: 80%;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    gap: 30px;
+}
+
+.categoriesContainer {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap:  wrap;
+    justify-content: space-around;
+    border-radius: 18px;
+}
+
+.participants {
+    text-align: center;
+    width: 30%;
+    height: 100%;
+    background-color: white;
+    border-radius: 18px;
+}
+
+/*.categories, .categorie {
+    border: 2px solid black;
+    display: flex;
+    flex-wrap: wrap;
+}*/
+
+.flex-items {
+    display: block;
+    width: 30%;
+    height: 45%;
+    border: 2px solid #D0D0D0;
+    border-radius: 18px;
+    margin: auto;
+    background-color: #D0D0D0;
+}
+
+.flex-items:hover{
+    background-color: #000;
+    border-color: #29F717;
+    color: #fff;
+
+}
+
+
+h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.buttons-index {
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
+    gap:30px
+    }
+    
+    .invitez {
+        background-color: #0000FF;
+        border: none;
+        color: #ffffff;
+        font-family: "supercell";
+        border-radius: 20px;
+        width: 200px;
+        height: 75px;
+        
+     
+    
+    }
+    
+    .demarrer {
+        background-color: white;
+        text-align: center;
+        border-radius: 20px;
+        width: 200px;
+        height: 75px;
+        font-family: "supercell";
+        
+    }
+    
+    .invitez:hover{
+        box-shadow: 10px 10px 5px 0px #ffff;
+        -webkit-box-shadow: 10px 10px 5px 0px #ffff;  
+        -moz-box-shadow: 10px 10px 5px 0px #ffff;
+    }
+    
+    .demarrer:hover  {
+        box-shadow: 10px 10px 5px 0px #0000FF;
+        -webkit-box-shadow: 10px 10px 5px 0px #0000FF;  
+        -moz-box-shadow: 10px 10px 5px 0px #0000FF;
+    }
+
+
+
+footer  {
+    bottom: 50;
+    height: 7vh;
+}
+
+footer p {
+    color: white;
+    text-align: center;
+    font-family: 'roboto', sans-serif;
+}
+
+
+.link {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    right: 30px;
+
+}
+
+.play {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    right: 30px;
+}
+
+.return {
+    width: 100px;
+    height: 50px;
+    background-color: #D0D0D0;
+    border: none;
+    border-radius: 20px;
+    margin-left: 10px
+}
+
+
+.return:hover {
+    background-color: #EE0808;
+  
+
+}
