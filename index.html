@@ -3,23 +3,46 @@
 
 <head>
     <title>Guess the Song Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <audio id="myAudio" controls preload="auto"></audio>
+    <header><button class="return"> retour</button></header>
 
-    <div id="categories">
+    <audio id="myAudio" controls preload="auto"></audio>
+    <div class="page">
+    <!-- <div id="categories">
         <button onclick="selectCategory('Test')">Test</button>
         <button onclick="selectCategory('Année 2010')">Année 2010</button>
-        <!-- Ajoutez d'autres catégories ici -->
-    </div>
-    <div id="songButtons"></div>
-    <div id="timer">Temps restant: 30s</div>
-    <div id="player1Health">Joueur 1: 100 HP</div>
-    <div id="player2Health">Joueur 2: 100 HP</div>
-    <div id="responseMessage"></div>
-    <div id="errorCountdown" style="display: none;">Temps avant la prochaine tentative : 5s</div>
+        <Ajoutez d'autres catégories ici -->
+    <!-- <div id="songButtons"></div> -->
 
+    <div class="pseudos">
+        <div id="player1Health">Joueur 1: 100 HP</div>
+        <div id="player2Health">Joueur 2: 100 HP</div>
+    </div>
+    
+    <div class="timer"><p class="tempstexte">Temps restant:</p><p class="chrono">30sec:</p></div>
+    <div id="responseMessage"></div>
+    <div id="errorCountdown">Temps avant la prochaine tentative : 5s</div>
+    <div class="streaks">
+        <div class="streak1">
+            <p> 0 </p>
+            <img src="images/426833.png" class="streakimg">
+        </div>
+        <div class="streak2"><p> 0 </p>
+            <img src="images/426833.png" class="streakimg"></div>
+        
+    </div> 
+    <div class="choixs"> 
+        <a><div class="choix1, choix">choix 1</div> </a>
+        <a><div class="choix2, choix">choix 2 </div> </a>
+        <a><div class="choix3, choix">choix 3</div> </a>
+        <a><div class="choix4, choix">choix 4</div> </a>
+
+
+    </div>
+</div>
 
     <script>
         var audio = document.getElementById("myAudio");

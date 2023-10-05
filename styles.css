@@ -1,14 +1,151 @@
 /* Styles pour le lecteur audio et le bouton "Prêt" */
+
+@font-face {
+    font-family: "supercell";
+    src:
+      local("supercell"),
+      url("../fonts/supercell-magic.ttf") }
+
+      @font-face {
+        font-family: 'roboto';
+        src:
+          local("roboto"),
+          url("../fonts/Roboto-Medium.ttf") }
+    
+
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: black;
+    color: white;
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100vh;
+    font-family: 'roboto';
+}
+
+header {
+    top: 0;
+    height: 5vh;
+    width: 100%;
+    
+}
+
+.return:hover {
+    background-color: #EE0808;
+}
+
+
+.page {
+    width: 100%;
+    height: 100%;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pseudos {
+    height: 10vh;
+    width: 90%;
+    
+    display: flex;
+    justify-content: space-between;
+    font-size: 35px;
+    font-family: 'supercell';
+    
+}
+
+.chrono {
+    color: #0000ff;
+}
+
+.timer {
+    width: 100%;
+    height: 20vh;
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    text-align: center;
+    flex-direction: column;
+}
+
+
+.streaks {
+    width: 100%;
+    height: 30vh;
+    /* background-color: grey; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.streak1 {
+    width: 50vh;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+.streak2 {
+    width: 50vh;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+
+
+.streakimg {
+    width: 150px;
+    height: 150px;
+}
+
+.choixs {
+    width: 100%;
+    height: 25vh;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+
+
+.choix {
+    width: 45vh;
+    height: 15vh;
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    font-family: 'roboto'
+
+}
+
+.choix:hover {
+   
+    border: 5px solid #29F717;
+}
+
+.tempstexte {
+    margin: 0;
 }
 
 h1 {
     color: #333;
+}
+
+#myAudio {
+    display: hidden;
 }
 
 #audio-controls {
