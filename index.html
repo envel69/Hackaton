@@ -3,7 +3,7 @@
 
 <head>
     <title>Guess the Song Game</title>
-    
+
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -11,234 +11,326 @@
     <header><button class="return"> retour</button></header>
     <audio id="myAudio" controls preload="auto"></audio>
     <div class="page">
-     <div id="categories">
-        <button onclick="selectCategory('Test')">Test</button>
-        <button onclick="selectCategory('Année 2010')">Année 2010</button>
-    
-     <div id="songButtons"></div> 
-    <div class="pseudos">
-        <div id="player1Health">Joueur 1: 100 HP</div>
-        <div id="player2Health">Joueur 2: 100 HP</div>
-    </div>
-    
-    <div class="timer"><p class="tempstexte">Temps restant:</p><p class="chrono">30sec:</p></div>
-    <div id="responseMessage"></div>
-    <div id="errorCountdown">Temps avant la prochaine tentative : 5s</div>
-    <div class="streaks">
-        <div class="streak1">
-            <p> 0 </p>
-            <img src="images/426833.png" class="streakimg">
+        <div id="categories">
+            <button onclick="selectCategory('Test')">Test</button>
+            <button onclick="selectCategory('Année 2010')">Année 2010</button>
+
+            <div id="songButtons"></div>
+            <div class="pseudos">
+                <div id="player1Health">Joueur 1: 100 HP</div>
+                <div id="player2Health">Joueur 2: 100 HP</div>
+            </div>
+
+            <div class="timer">
+                <div class="chrono">30</div>
+            </div>
+            <div id="responseMessage"></div>
+            <div id="errorCountdown">Temps avant la prochaine tentative : 5s</div>
+            <div class="streaks">
+                <div class="streak1">
+                    <p> 0 </p>
+                    <img src="images/426833.png" class="streakimg">
+                </div>
+                <div class="streak2">
+                    <p> 0 </p>
+                    <img src="images/426833.png" class="streakimg">
+                </div>
+
+            </div>
+            <div class="choixs">
+                <div class="choix1 choix"></div>
+                <div class="choix2 choix"></div>
+                <div class="choix3 choix"></div>
+                <div class="choix4 choix"></div>
+            </div>
         </div>
-        <div class="streak2"><p> 0 </p>
-            <img src="images/426833.png" class="streakimg"></div>
-        
-    </div> 
-    <div class="choixs">
-        <div class="choix1 choix"></div>
-        <div class="choix2 choix"></div>
-        <div class="choix3 choix"></div>
-        <div class="choix4 choix"></div>
-    </div>
-</div>
-    <script>
-        var audio = document.getElementById("myAudio");
-        var categories = {
-            "Test": [
-                "audio/KIKESA - 42 JOURS.mp3",
-                "audio/Nekfeu - On Verra (Clip Officiel).mp3",
-                "audio/Trophée Vald.mp3",
-                "audio/Des Histoires a Raconter.mp3",
-            ],
-            "Année 2010": [
-                "audio/Roar.mp3",
-                "audio/Wake Me Up.mp3",
-                "audio/Shape Of You.mp3",
-                "audio/Hello.mp3",
-                "audio/See You Again.mp3",
-                "audio/Party Rock Anthem.mp3",
-            ],
-            // Ajoutez d'autres catégories ici
-        };
-        var currentCategory = null;
-        var currentSongIndex = 0;
-        var player1Health = 100;
-        var player2Health = 100;
-        var timerInterval;
-        var gameActive = true; // Variable pour suivre l'état du jeu
-        var responseCooldown = false; // Variable pour gérer le temps d'attente après une mauvaise réponse
-        function playRandomSongAndShowButtons() {
-            if (!currentCategory) return;
-            if (!gameActive) return; // Vérifier si le jeu est actif
-            if (responseCooldown) return; // Vérifier si le joueur est en temps d'attente
-            var categorySongs = categories[currentCategory];
-            if (!categorySongs || categorySongs.length === 0) return;
-            // Sélectionner une musique différente de la précédente
-            var shuffledSongs = shuffleArray(categorySongs);
-            var newSongIndex = currentSongIndex;
-            while (newSongIndex === currentSongIndex) {
-                newSongIndex = Math.floor(Math.random() * shuffledSongs.length);
-            }
-            currentSongIndex = newSongIndex;
-            audio.src = shuffledSongs[currentSongIndex];
-            audio.currentTime = 60; // Définir le temps de lecture à 60 secondes
-            audio.play();
-            startTimer(); // Lancer le chronomètre
-            showRandomButtons(shuffledSongs);
-        }
-        function shuffleArray(array) {
-            // Mélanger un tableau en utilisant l'algorithme de Fisher-Yates
-            for (var i = array.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-        function showRandomButtons(categorySongs) {
-    var choixDivs = document.querySelectorAll('.choix'); // Sélectionnez toutes les divs avec la classe "choix"
-    
-    // Sélectionner trois titres au hasard
-    var randomIndexes = [];
-    while (randomIndexes.length < 3) {
-        var randomIndex = Math.floor(Math.random() * categorySongs.length);
-        if (
-            randomIndexes.indexOf(randomIndex) === -1 &&
-            randomIndex !== currentSongIndex
-        ) {
-            randomIndexes.push(randomIndex);
-        }
-    }
-    
-    // Sélectionner un emplacement aléatoire pour la bonne réponse parmi les 4 choix
-    var correctAnswerIndex = Math.floor(Math.random() * 4);
-    
-    // Mettez à jour le contenu des divs "choix" avec les titres des chansons
-    for (var i = 0; i < 4; i++) {
-        if (i === correctAnswerIndex) {
-            // Mettez à jour le contenu de la bonne réponse
-            choixDivs[i].textContent = getSongTitle(categorySongs[currentSongIndex]);
-            choixDivs[i].onclick = function () {
-                checkAnswer(true);
-            };
-        } else {
-            // Mettez à jour le contenu d'une réponse incorrecte
-            var randomButtonIndex = randomIndexes.pop();
-            choixDivs[i].textContent = getSongTitle(categorySongs[randomButtonIndex]);
-            choixDivs[i].onclick = function () {
-                checkAnswer(false);
-            };
-        }
-        // Ajoutez des classes et des attributs pour styliser les divs comme des boutons
-        choixDivs[i].classList.add("button"); // Ajoutez une classe "button" pour le style
-        choixDivs[i].setAttribute("role", "button"); // Ajoutez l'attribut "role" pour l'accessibilité
-    }
-}
-        function getSongTitle(songFileName) {
-            var fileNameParts = songFileName.split("/");
-            var fileName = fileNameParts[fileNameParts.length - 1];
-            return fileName.replace(".mp3", "");
-        }
-        function startTimer() {
-            var timeLeft = 30;
-            var timerElement = document.getElementById("timer");
-            clearInterval(timerInterval); // Arrêter le chronomètre précédent
-            timerInterval = setInterval(function () {
-                timerElement.textContent = "Temps restant: " + timeLeft + "s";
-                timeLeft--;
-                if (timeLeft < 0) {
-                    clearInterval(timerInterval);
-                    // Le temps est écoulé, gérer la fin du temps ici
-                    endTimer();
-                }
-            }, 1000);
-        }
-        function endTimer() {
-            // Gérer la fin du temps ici
-            if (!responseCooldown) {
-                changeSongOnTimeout();
-            }
-        }
-        function changeSongOnTimeout() {
-            playRandomSongAndShowButtons();
-        }
-        var buttonsDisabled = false;
-        function checkAnswer(isCorrect) {
-            if (!gameActive || buttonsDisabled) return; // Vérifier si le jeu est actif et si les boutons sont désactivés
-            if (isCorrect) {
-                // L'autre joueur perd de la vie (Joueur 2 dans ce cas)
-                updatePlayerHealth(2, calculateDamage(30 - parseInt(document.getElementById("timer").textContent)));
-                // Passer à la musique suivante
-                playRandomSongAndShowButtons();
-            } else {
-                // Joueur 1 s'est trompé
-                var responseMessage = document.getElementById("responseMessage");
-                responseMessage.innerHTML = "Mauvaise réponse!";
-                responseMessage.classList.remove("green-text");
-                responseMessage.classList.add("red-text");
-                buttonsDisabled = true; // Désactiver les boutons
-                var countdownElement = document.getElementById("errorCountdown");
-                countdownElement.style.display = "block"; // Afficher le compteur
-                var countdown = 5; // Compteur initial à 5 secondes
-                // Mettre à jour le compteur chaque seconde
-                var countdownInterval = setInterval(function () {
-                    countdown--;
-                    countdownElement.textContent = "Temps avant la prochaine tentative : " + countdown + "s";
-                    if (countdown === 0) {
-                        clearInterval(countdownInterval); // Arrêter le compteur quand il atteint 0
-                        countdownElement.style.display = "none"; // Cacher le compteur
-                        buttonsDisabled = false; // Réactiver les boutons après 5 secondes
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var audio = document.getElementById("myAudio");
+                var categories = {
+                    "Test": [
+                        "audio/KIKESA - 42 JOURS.mp3",
+                        "audio/Nekfeu - On Verra (Clip Officiel).mp3",
+                        "audio/Trophée Vald.mp3",
+                        "audio/Des Histoires a Raconter.mp3",
+                    ],
+                    "Année 2010": [
+                        "audio/Roar.mp3",
+                        "audio/Wake Me Up.mp3",
+                        "audio/Shape Of You.mp3",
+                        "audio/Hello.mp3",
+                        "audio/See You Again.mp3",
+                        "audio/Party Rock Anthem.mp3",
+                    ],
+                    // Ajoutez d'autres catégories ici
+                };
+                var currentCategory = null;
+                var currentSongIndex = 0;
+                var player1Health = 100;
+                var player2Health = 100;
+                var timerInterval;
+                var gameActive = true; // Variable pour suivre l'état du jeu
+                var responseCooldown = false; // Variable pour gérer le temps d'attente après une mauvaise réponse
+                var isAnswered = false; // Variable pour suivre si une réponse a été donnée
+
+
+                audio.currentTime = 90;
+
+                function playRandomSongAndShowButtons() {
+                    if (!currentCategory) return;
+                    if (!gameActive) return; // Vérifier si le jeu est actif
+                    isAnswered = false; // Réinitialiser la variable isAnswered
+                    if (responseCooldown) return; // Vérifier si le joueur est en temps d'attente
+                    var categorySongs = categories[currentCategory];
+                    if (!categorySongs || categorySongs.length === 0) return;
+                    // Sélectionner une musique différente de la précédente
+                    var shuffledSongs = shuffleArray(categorySongs);
+                    var newSongIndex = currentSongIndex;
+                    while (newSongIndex === currentSongIndex) {
+                        newSongIndex = Math.floor(Math.random() * shuffledSongs.length);
                     }
-                }, 1000);
-                // Appliquer des dégâts au joueur 1
-                updatePlayerHealth(1, calculateDamage(30 - parseInt(document.getElementById("timer").textContent)));
-            }
-            // Réinitialiser le chronomètre
-            startTimer();
-        }
-        function endGame() {
-            // Gérer la fin de la partie ici
-            var winner;
-            if (player1Health <= 0 && player2Health <= 0) {
-                winner = "Match nul";
-            } else if (player1Health <= 0) {
-                winner = "Joueur 2";
-            } else {
-                winner = "Joueur 1";
-            }
-            document.getElementById("responseMessage").innerHTML =
-                "Partie terminée. Le gagnant est : " + winner;
-            gameActive = false; // Désactiver le jeu après la fin de la partie
-        }
-        function updatePlayerHealth(player, damage) {
-            if (player === 1) {
-                player1Health -= damage;
-                if (player1Health < 0) player1Health = 0;
-                document.getElementById("player1Health").textContent =
-                    "Joueur 1: " + player1Health + " HP";
-            } else if (player === 2) {
-                player2Health -= damage;
-                if (player2Health < 0) player2Health = 0;
-                document.getElementById("player2Health").textContent =
-                    "Joueur 2: " + player2Health + " HP";
-            }
-        }
-        function selectCategory(category) {
-            currentCategory = category;
-            player1Health = 100; // Réinitialiser les points de vie du joueur 1
-            player2Health = 100; // Réinitialiser les points de vie du joueur 2
-            responseCooldown = false; // Réinitialiser le temps d'attente
-            playRandomSongAndShowButtons();
-        }
-        function calculateDamage(responseTime) {
-            if (responseTime >= 20) {
-                return 10; // Le joueur perd 10 HP pour un temps de réponse entre 30 et 20 secondes
-            } else if (responseTime >= 10) {
-                return 7; // Le joueur perd 7 HP pour un temps de réponse entre 19 et 10 secondes
-            } else {
-                return 5; // Le joueur perd 5 HP pour un temps de réponse entre 0 et 9 secondes
-            }
-        }
-        // Appeler selectCategory pour initialiser la catégorie au chargement de la page (par exemple, "Pop")
-        selectCategory("Pop");
-    </script>
+                    currentSongIndex = newSongIndex;
+                    audio.src = shuffledSongs[currentSongIndex];
+
+                    // Définir le temps de lecture à 1 minute 30 secondes
+                    audio.currentTime = 90;
+
+                    audio.play();
+                    showRandomButtons(shuffledSongs);
+
+                    startTimer();
+                }
+
+                function startTimer() {
+                    var timeLeft = 30;
+                    var timerElement = document.querySelector(".chrono"); // Sélectionner l'élément avec la classe "chrono"
+                    clearInterval(timerInterval); // Arrêter le chronomètre précédent
+                    timerInterval = setInterval(function () {
+                        timerElement.textContent = timeLeft;
+                        timeLeft--;
+                        if (timeLeft < 0) {
+                            clearInterval(timerInterval);
+                            // Le temps est écoulé, gérer la fin du temps ici
+                            endTimer();
+                        }
+                    }, 1000);
+                }
+
+                function shuffleArray(array) {
+                    // Mélanger un tableau en utilisant l'algorithme de Fisher-Yates
+                    for (var i = array.length - 1; i > 0; i--) {
+                        var j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
+                    return array;
+                }
+
+                function showRandomButtons(categorySongs) {
+                    var choixDivs = document.querySelectorAll('.choix'); // Sélectionnez toutes les divs avec la classe "choix"
+
+                    // Sélectionner trois titres au hasard
+                    var randomIndexes = [];
+                    while (randomIndexes.length < 3) {
+                        var randomIndex = Math.floor(Math.random() * categorySongs.length);
+                        if (
+                            randomIndexes.indexOf(randomIndex) === -1 &&
+                            randomIndex !== currentSongIndex
+                        ) {
+                            randomIndexes.push(randomIndex);
+                        }
+                    }
+
+                    // Sélectionner un emplacement aléatoire pour la bonne réponse parmi les 4 choix
+                    var correctAnswerIndex = Math.floor(Math.random() * 4);
+
+                    // Mettez à jour le contenu des divs "choix" avec les titres des chansons
+                    for (var i = 0; i < 4; i++) {
+                        if (i === correctAnswerIndex) {
+                            // Mettez à jour le contenu de la bonne réponse
+                            choixDivs[i].textContent = getSongTitle(categorySongs[currentSongIndex]);
+                            choixDivs[i].onclick = function () {
+                                checkAnswer(true);
+                            };
+                        } else {
+                            // Mettez à jour le contenu d'une réponse incorrecte
+                            var randomButtonIndex = randomIndexes.pop();
+                            choixDivs[i].textContent = getSongTitle(categorySongs[randomButtonIndex]);
+                            choixDivs[i].onclick = function () {
+                                checkAnswer(false);
+                            };
+                        }
+                        // Ajoutez des classes et des attributs pour styliser les divs comme des boutons
+                        choixDivs[i].classList.add("button"); // Ajoutez une classe "button" pour le style
+                        choixDivs[i].setAttribute("role", "button"); // Ajoutez l'attribut "role" pour l'accessibilité
+                    }
+                }
+
+                function getSongTitle(songFileName) {
+                    var fileNameParts = songFileName.split("/");
+                    var fileName = fileNameParts[fileNameParts.length - 1];
+                    return fileName.replace(".mp3", "");
+                }
+
+                function startTimer() {
+                    var timeLeft = 30;
+                    var timerElement = document.querySelector(".chrono"); // Sélectionner l'élément avec la classe "chrono"
+                    clearInterval(timerInterval); // Arrêter le chronomètre précédent
+                    timerInterval = setInterval(function () {
+                        timerElement.textContent = timeLeft;
+                        timeLeft--;
+                        if (timeLeft < 0) {
+                            clearInterval(timerInterval);
+                            // Le temps est écoulé, gérer la fin du temps ici
+                            endTimer();
+                        }
+                    }, 1000);
+                }
+
+                function endTimer() {
+                    // Gérer la fin du temps ici
+                    if (!responseCooldown) {
+                        changeSongOnTimeout();
+                    }
+                }
+
+                function changeSongOnTimeout() {
+                    playRandomSongAndShowButtons();
+                }
+
+                var buttonsDisabled = false;
+
+                function checkAnswer(isCorrect) {
+                    if (!gameActive || buttonsDisabled) return; // Vérifier si le jeu est actif et que les boutons ne sont pas désactivés
+                    if (isAnswered) return; // Si une réponse a déjà été donnée, ne faites rien
+
+                    isAnswered = true; // Marquer la réponse comme donnée
+
+                    if (isCorrect || parseInt(document.querySelector(".chrono").textContent) === 0) {
+                        // L'autre joueur perd de la vie (Joueur 2 dans ce cas) si la réponse est correcte ou si le temps est écoulé
+                        updatePlayerHealth(2, calculateDamage(30 - parseInt(document.querySelector(".chrono").textContent)));
+
+                        // Afficher un message en vert pour une réponse correcte
+                        var responseMessage = document.getElementById("responseMessage");
+                        responseMessage.innerHTML = "Bonne réponse!";
+                        responseMessage.classList.remove("red-text");
+                        responseMessage.classList.add("green-text");
+
+                        // Passer à la chanson suivante
+                        playRandomSongAndShowButtons();
+                    } else {
+                        // Joueur 1 s'est trompé
+                        var responseMessage = document.getElementById("responseMessage");
+                        responseMessage.innerHTML = "Mauvaise réponse!";
+                        responseMessage.classList.remove("green-text");
+                        responseMessage.classList.add("red-text");
+                        buttonsDisabled = true; // Désactiver les boutons
+
+                        // Afficher le message "Temps avant la prochaine réponse"
+                        var countdownElement = document.getElementById("errorCountdown");
+                        countdownElement.style.display = "block"; // Afficher le compteur
+
+                        var countdown = 5; // Compteur initial à 5 secondes
+
+                        // Mettre à jour le compteur chaque seconde
+                        var countdownInterval = setInterval(function () {
+                            countdown--;
+                            countdownElement.textContent = "Temps avant la prochaine réponse : " + countdown + "s";
+                            if (countdown === 0) {
+                                clearInterval(countdownInterval); // Arrêter le compteur quand il atteint 0
+                                countdownElement.style.display = "none"; // Cacher le compteur
+                                buttonsDisabled = false; // Réactiver les boutons après 5 secondes
+
+                                // Réinitialiser la variable isAnswered pour permettre au joueur de continuer à jouer
+                                isAnswered = false;
+
+                                // Réinitialiser le chronomètre
+                                startTimer();
+                            }
+                        }, 1000);
+                    }
+                }
+
+
+
+
+                function endGame() {
+                    // Gérer la fin de la partie ici
+                    var winner;
+                    if (player1Health <= 0 && player2Health <= 0) {
+                        winner = "Match nul";
+                    } else if (player1Health <= 0) {
+                        winner = "Joueur 2";
+                    } else {
+                        winner = "Joueur 1";
+                    }
+                    document.getElementById("responseMessage").innerHTML =
+                        "Partie terminée. Le gagnant est : " + winner;
+                    gameActive = false; // Désactiver le jeu après la fin de la partie
+
+                    endTimer(); // Arrêter le chronomètre
+
+
+
+
+                }
+
+                function updatePlayerHealth(player, damage) {
+                    if (player === 1) {
+                        player1Health -= damage;
+                        if (player1Health < 0) player1Health = 0;
+                        document.getElementById("player1Health").textContent =
+                            "Joueur 1: " + player1Health + " HP";
+                    } else if (player === 2) {
+                        player2Health -= damage;
+                        if (player2Health < 0) player2Health = 0;
+                        document.getElementById("player2Health").textContent =
+                            "Joueur 2: " + player2Health + " HP";
+                    }
+
+                    // Vérifier si l'un des joueurs n'a plus de vie
+                    if (player1Health <= 0 || player2Health <= 0) {
+                        endGame();
+                    }
+                }
+
+                function selectCategory(category) {
+                    currentCategory = category;
+                    player1Health = 100; // Réinitialiser les points de vie du joueur 1
+                    player2Health = 100; // Réinitialiser les points de vie du joueur 2
+                    responseCooldown = false; // Réinitialiser le temps d'attente
+                    playRandomSongAndShowButtons();
+                }
+
+                function calculateDamage(responseTime) {
+                    if (responseTime >= 20) {
+                        return 5; // Le joueur perd 10 HP pour un temps de réponse entre 30 et 20 secondes
+                    } else if (responseTime >= 10) {
+                        return 7; // Le joueur perd 7 HP pour un temps de réponse entre 19 et 10 secondes
+                    } else {
+                        return 10; // Le joueur perd 5 HP pour un temps de réponse entre 0 et 9 secondes
+                    }
+                }
+
+                // Ajoutez des gestionnaires d'événements aux boutons de sélection de catégorie
+                document.querySelectorAll("#categories button").forEach(function (button) {
+                    button.addEventListener("click", function () {
+                        var selectedCategory = button.textContent;
+                        selectCategory(selectedCategory);
+                    });
+                });
+
+                // Ajoutez un gestionnaire d'événement au bouton "retour" dans l'en-tête pour passer à la chanson suivante
+                var returnButton = document.querySelector(".return");
+                returnButton.addEventListener("click", function () {
+                    if (!gameActive) return; // Ne rien faire si le jeu n'est pas actif
+                    playRandomSongAndShowButtons(); // Passer à la chanson suivante
+                });
+
+                // Appeler selectCategory pour initialiser la catégorie au chargement de la page (par exemple, "Test")
+                selectCategory("Année 2010");
+            });
+
+        </script>
 </body>
+
 </html>
