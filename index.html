@@ -11,11 +11,11 @@
     <header><button class="return"> retour</button></header>
     <audio id="myAudio" controls preload="auto"></audio>
     <div class="page">
-    <!-- <div id="categories">
+     <div id="categories">
         <button onclick="selectCategory('Test')">Test</button>
         <button onclick="selectCategory('Année 2010')">Année 2010</button>
-        <Ajoutez d'autres catégories ici -->
-    <!-- <div id="songButtons"></div> -->
+    
+     <div id="songButtons"></div> 
     <div class="pseudos">
         <div id="player1Health">Joueur 1: 100 HP</div>
         <div id="player2Health">Joueur 2: 100 HP</div>
@@ -33,11 +33,11 @@
             <img src="images/426833.png" class="streakimg"></div>
         
     </div> 
-    <div class="choixs"> 
-        <a><div class="choix1, choix">choix 1</div> </a>
-        <a><div class="choix2, choix">choix 2 </div> </a>
-        <a><div class="choix3, choix">choix 3</div> </a>
-        <a><div class="choix4, choix">choix 4</div> </a>
+    <div class="choixs">
+        <div class="choix1 choix"></div>
+        <div class="choix2 choix"></div>
+        <div class="choix3 choix"></div>
+        <div class="choix4 choix"></div>
     </div>
 </div>
     <script>
@@ -94,41 +94,44 @@
             return array;
         }
         function showRandomButtons(categorySongs) {
-            var songButtonsDiv = document.getElementById("songButtons");
-            songButtonsDiv.innerHTML = "";
-            // Sélectionner trois titres au hasard
-            var randomIndexes = [];
-            while (randomIndexes.length < 3) {
-                var randomIndex = Math.floor(Math.random() * categorySongs.length);
-                if (
-                    randomIndexes.indexOf(randomIndex) === -1 &&
-                    randomIndex !== currentSongIndex
-                ) {
-                    randomIndexes.push(randomIndex);
-                }
-            }
-            // Sélectionner un emplacement aléatoire pour la bonne réponse parmi les 4 choix
-            var correctAnswerIndex = Math.floor(Math.random() * 4);
-            // Ajouter quatre boutons (un pour la bonne réponse et trois pour des réponses aléatoires)
-            for (var i = 0; i < 4; i++) {
-                var answerButton = document.createElement("button");
-                if (i === correctAnswerIndex) {
-                    // Bouton pour la bonne réponse
-                    answerButton.textContent = getSongTitle(categorySongs[currentSongIndex]);
-                    answerButton.onclick = function () {
-                        checkAnswer(true);
-                    };
-                } else {
-                    // Bouton pour une réponse incorrecte
-                    var randomButtonIndex = randomIndexes.pop();
-                    answerButton.textContent = getSongTitle(categorySongs[randomButtonIndex]);
-                    answerButton.onclick = function () {
-                        checkAnswer(false);
-                    };
-                }
-                songButtonsDiv.appendChild(answerButton);
-            }
+    var choixDivs = document.querySelectorAll('.choix'); // Sélectionnez toutes les divs avec la classe "choix"
+    
+    // Sélectionner trois titres au hasard
+    var randomIndexes = [];
+    while (randomIndexes.length < 3) {
+        var randomIndex = Math.floor(Math.random() * categorySongs.length);
+        if (
+            randomIndexes.indexOf(randomIndex) === -1 &&
+            randomIndex !== currentSongIndex
+        ) {
+            randomIndexes.push(randomIndex);
         }
+    }
+    
+    // Sélectionner un emplacement aléatoire pour la bonne réponse parmi les 4 choix
+    var correctAnswerIndex = Math.floor(Math.random() * 4);
+    
+    // Mettez à jour le contenu des divs "choix" avec les titres des chansons
+    for (var i = 0; i < 4; i++) {
+        if (i === correctAnswerIndex) {
+            // Mettez à jour le contenu de la bonne réponse
+            choixDivs[i].textContent = getSongTitle(categorySongs[currentSongIndex]);
+            choixDivs[i].onclick = function () {
+                checkAnswer(true);
+            };
+        } else {
+            // Mettez à jour le contenu d'une réponse incorrecte
+            var randomButtonIndex = randomIndexes.pop();
+            choixDivs[i].textContent = getSongTitle(categorySongs[randomButtonIndex]);
+            choixDivs[i].onclick = function () {
+                checkAnswer(false);
+            };
+        }
+        // Ajoutez des classes et des attributs pour styliser les divs comme des boutons
+        choixDivs[i].classList.add("button"); // Ajoutez une classe "button" pour le style
+        choixDivs[i].setAttribute("role", "button"); // Ajoutez l'attribut "role" pour l'accessibilité
+    }
+}
         function getSongTitle(songFileName) {
             var fileNameParts = songFileName.split("/");
             var fileName = fileNameParts[fileNameParts.length - 1];
